@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PokeCard</string>
+    <string name="facebook_app_id">293763521111834</string>
+    <string name="fb_login_protocol_scheme">fb293763521111834</string>
+</resources>
