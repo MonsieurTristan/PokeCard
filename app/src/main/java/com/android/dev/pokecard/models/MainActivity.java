@@ -111,9 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
-        HttpURLConnection urlConnection = null;
         java.net.URL url = new java.net.URL(urlString);
-        urlConnection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
         urlConnection.setReadTimeout(10000 /* milliseconds */ );
         urlConnection.setConnectTimeout(15000 /* milliseconds */ );
