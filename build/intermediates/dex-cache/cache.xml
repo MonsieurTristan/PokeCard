@@ -3,39 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/Users/iem/Desktop/PokeCard/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_0bb550cf63e2087ef05c51935de2decc2a11a6d5\classes.dex" />
+        <dex dex="/Users/iem/Desktop/PokeCard/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_d3778c77d3b8af06de304505f46fd2c55177f426/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Android\.android\build-cache\6fa1b2e89d7b77d70d8755305ee8343a9e6ba30c\output\jars\classes.jar"
+        jar="/Users/iem/Desktop/PokeCard/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="95519720620b553f63afc789beba9ad582807f7c">
-        <dex dex="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fb12e1c36c2aabe9423c7fd258ab7e43eeeea0e7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\paulg\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_c66afe76601f51b80f0dd9ecc7b4e3dc2ae7409c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6ea23c3ae1d29d1a557e3168c939043814ea128a">
-        <dex dex="C:\Users\paulg\AndroidStudioProjects\Nouveau dossier\PokeCard\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_4c11285d0558426d2f3c693818480ef4bf72e5a2\classes.dex" />
+        sha1="55ca299b09bd375d85bf506bd70e7e6f53a73862">
+        <dex dex="/Users/iem/Desktop/PokeCard/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_008cdfbfd151c29b7bf018c925c175a8d59b1e65/classes.dex" />
     </item>
 
 </items>
