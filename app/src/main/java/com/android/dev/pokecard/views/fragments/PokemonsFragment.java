@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.pokemons;
+package com.android.dev.pokecard.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.android.dev.pokecard.R;
-import com.android.dev.pokecard.adapter.PokemonRVAdapter;
+import com.android.dev.pokecard.presenters.PokemonsPresenter;
 
 import java.util.List;
 
@@ -20,18 +18,18 @@ import java.util.List;
  * Created by iem on 07/11/2017.
  */
 
-public class PokemonsFragment extends Fragment implements PokemonsContract.View {
+public class PokemonsFragment extends Fragment  {
     List listPokemons;
-
-    private PokemonsContract.Presenter mPresenter;
+    PokemonsPresenter pokemonPresenter;
 
     public static PokemonsFragment newInstance() {
         return new PokemonsFragment();
     }
 
-    @Override
-    public void setPresenter(@NonNull PokemonsContract.Presenter presenter) {
-        //mPresenter = checkNotNull(presenter);
+
+
+    /*public void setPresenter(PokemonsPresenter pokemonPresenter) {
+        this.pokemonPresenter = pokemonPresenter;
     }
 
     @Nullable
@@ -47,7 +45,7 @@ public class PokemonsFragment extends Fragment implements PokemonsContract.View 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        //pokemonPresenter.start();
     }
 
     @Override
@@ -56,8 +54,8 @@ public class PokemonsFragment extends Fragment implements PokemonsContract.View 
             mStatisticsTV.setText(getString(R.string.loading));
         } else {
             mStatisticsTV.setText("");
-        }*/
-    }
+        }
+    /*}
 
     @Override
     public void showStatistics(int numberOfIncompleteTasks, int numberOfCompletedTasks) {
@@ -68,16 +66,16 @@ public class PokemonsFragment extends Fragment implements PokemonsContract.View 
                     + numberOfIncompleteTasks + "\n" + getResources().getString(
                     R.string.statistics_completed_tasks) + " " + numberOfCompletedTasks;
             mStatisticsTV.setText(displayString);
-        }*/
+        }
     }
 
     @Override
     public void showLoadingStatisticsError() {
-        //mStatisticsTV.setText(getResources().getString(R.string.statistics_error));
+        mStatisticsTV.setText(getResources().getString(R.string.statistics_error));
     }
 
     @Override
     public boolean isActive() {
         return isAdded();
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.pokemons;
+package com.android.dev.pokecard.views;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonRVAdapter;
-import com.squareup.picasso.Picasso;
+import com.android.dev.pokecard.models.Pokemon;
 
 import java.util.ArrayList;
 import java.util.List;

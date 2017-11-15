@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.activity;
+package com.android.dev.pokecard.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.dev.pokecard.R;
-import com.android.dev.pokecard.pokemons.PokemonsActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

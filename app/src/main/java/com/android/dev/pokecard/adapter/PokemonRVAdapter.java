@@ -11,12 +11,10 @@ import android.widget.TextView;
 
 
 import com.android.dev.pokecard.R;
-import com.android.dev.pokecard.pokemons.Pokemon;
-import com.android.dev.pokecard.pokemons.PokemonsActivity;
+import com.android.dev.pokecard.models.Pokemon;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by paulg on 14/11/2017.

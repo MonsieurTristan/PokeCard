@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.pokemons;
+package com.android.dev.pokecard.models;
 
 /**
  * Created by paulg on 14/11/2017.
@@ -9,7 +9,7 @@ public class Pokemon {
     private String legend;
     private String photoId;
 
-    Pokemon(String name, String legend, String photoId) {
+    public Pokemon(String name, String legend, String photoId) {
         this.name = name;
         this.legend = legend;
         this.photoId = photoId;
