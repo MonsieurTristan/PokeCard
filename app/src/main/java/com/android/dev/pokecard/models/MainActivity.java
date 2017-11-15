@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,13 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
         String line;
         while ((line = br.readLine()) != null) {
-            sb.append(line + "\n");
+            sb.append(new String(line.getBytes("ISO-8859-1"), "UTF-8") + "\n");
         }
+
         br.close();
 
         String jsonString = sb.toString();
-        System.out.println("JSON: " + jsonString);
-
+        Log.v("JSON","JSON: " + jsonString);
         return new JSONObject(jsonString);
     }
 
