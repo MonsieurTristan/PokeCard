@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".views.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="@string/app_name" android:name=".views.PokemonsActivity"/>
+        <activity android:label="@string/app_name" android:name=".views.activity.PokemonActivity"/>
+        <activity android:label="@string/app_name" android:name=".presenters.UserPresenter"/>
 
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"

@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.views;
+package com.android.dev.pokecard.views.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.dev.pokecard.R;
+import com.android.dev.pokecard.presenters.UserPresenter;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.rvButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PokemonsActivity.class);
+                Intent intent = new Intent(MainActivity.this, PokemonActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         Context context = getApplicationContext();
                         CharSequence text = "Registered";
                         int duration = Toast.LENGTH_SHORT;
-
+                        getUserDetails(loginResult);
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     }
@@ -139,5 +142,23 @@ public class MainActivity extends AppCompatActivity {
         return new JSONObject(jsonString);
     }
 
+    protected void getUserDetails(LoginResult loginResult) {
+        GraphRequest data_request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject json_object,
+                            GraphResponse response) {
+                        Intent intent = new Intent(MainActivity.this, UserPresenter.class);
+                        intent.putExtra("userProfile", json_object.toString());
+                        startActivity(intent);
+                    }
+
+                });
+        Bundle permission_param = new Bundle();
+        permission_param.putString("fields", "id,name,email,picture.width(120).height(120)");
+        data_request.setParameters(permission_param);
+        data_request.executeAsync();
+    }
 
 }
