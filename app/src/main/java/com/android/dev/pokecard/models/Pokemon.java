@@ -1,15 +1,24 @@
 package com.android.dev.pokecard.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by paulg on 14/11/2017.
  */
 
 public class Pokemon {
+
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("name")
     private String name;
+
     private String legend;
     private String photoId;
 
-    public Pokemon(String name, String legend, String photoId) {
+    public Pokemon(int id, String name, String legend, String photoId) {
+        this.id = id;
         this.name = name;
         this.legend = legend;
         this.photoId = photoId;

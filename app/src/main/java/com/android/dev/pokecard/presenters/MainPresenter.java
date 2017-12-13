@@ -15,5 +15,6 @@ public class MainPresenter {
     public MainPresenter(Context context, MainView mainView) {
         this.context = context;
         this.mainView = mainView;
+
     }
 }

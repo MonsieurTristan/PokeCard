@@ -39,9 +39,13 @@ public class PokemonRVAdapter extends RecyclerView.Adapter<PokemonRVAdapter.Poke
         }
     }
 
-    ArrayList<Pokemon> pokemons;
+    ArrayList<Pokemon> pokemons = new ArrayList<>();
 
     public PokemonRVAdapter(ArrayList<Pokemon> pokemons) {
+        this.pokemons = pokemons;
+    }
+
+    public void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 

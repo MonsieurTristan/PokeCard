@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonRVAdapter;
+import com.android.dev.pokecard.drawer.NavigationDrawerImpl;
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.presenters.PokemonsPresenter;
 import com.android.dev.pokecard.views.viewsinterfaces.PokemonView;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  */
 
 public class PokemonActivity extends AppCompatActivity implements PokemonView{
-    private DrawerLayout mDrawerLayout;
+    private Drawer drawer;
     private Toolbar toolbar;
 
     private PokemonsPresenter pokemonsPresenter;
@@ -44,13 +45,12 @@ public class PokemonActivity extends AppCompatActivity implements PokemonView{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        initDrawer();
         setContentView(R.layout.pokemon_activity);
+        this.drawer = new NavigationDrawerImpl(this).createNavigationDrawer(this);
         initializeInjection();
         initViews();
 
     }
-
 
 
     private void initViews(){
@@ -67,39 +67,6 @@ public class PokemonActivity extends AppCompatActivity implements PokemonView{
 
         //Init ImageView
         ImageView pikachuImageView = (ImageView) (findViewById(R.id.pokemon_photo));
-
-    }
-
-    private void initDrawer() {
-        //if you want to update the items at a later time it is recommended to keep it in a variable
-        final PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_pokemon_list);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_friend_list);
-
-        //create the drawer and remember the `Drawer` result object
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .addDrawerItems(
-                        item1,
-                        new DividerDrawerItem(),
-                        item2,
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_account)
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switch (position)
-                        {
-                            case 1:
-
-                                Intent myIntent = new Intent(PokemonActivity.this, PokemonActivity.class);
-                                PokemonActivity.this.startActivity(myIntent);
-                        }
-                        return true;
-                    }
-                })
-                .build();
     }
 
     private void initializeInjection(){
@@ -107,6 +74,13 @@ public class PokemonActivity extends AppCompatActivity implements PokemonView{
     }
 
 
-
-
+    @Override
+    public void refresh() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                rv.getAdapter().notifyDataSetChanged();
+            }
+        });
+    }
 }

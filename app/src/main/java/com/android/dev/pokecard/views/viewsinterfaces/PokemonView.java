@@ -6,5 +6,6 @@ package com.android.dev.pokecard.views.viewsinterfaces;
 
 public interface PokemonView {
 
+    void refresh();
 
 }
