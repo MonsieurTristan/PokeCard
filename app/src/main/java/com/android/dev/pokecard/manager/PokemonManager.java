@@ -1,10 +1,9 @@
 package com.android.dev.pokecard.manager;
 
 
-import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.dev.pokecard.models.Pokemon;
-import com.android.dev.pokecard.presenters.MyTask;
 import com.android.dev.pokecard.service.ServicePokemon;
 
 import java.io.IOException;
@@ -27,7 +26,8 @@ public class PokemonManager {
     private static PokemonManager instance;
 
     private ServicePokemon service;
-    private List<Pokemon> p = new ArrayList<>();
+    private List<Pokemon> pokemon = new ArrayList<>();
+    private List<Pokemon> pokemonNames = new ArrayList<>();
     public static PokemonManager getInstance() {
         if (instance == null) {
             instance = new PokemonManager();
@@ -40,22 +40,39 @@ public class PokemonManager {
         new MyTask().execute();
 
 
-
-        Call<List<Pokemon>> call = service.getAll();
+        Call<List<Pokemon>> call = service.getAllPokemonsIds();
         try {
             Response<List<Pokemon>> response = call.execute();
             if(response.isSuccessful()) {
-                p = response.body();
+                pokemon = response.body();
+                Log.d("pokemon", pokemon.get(1).toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return (ArrayList<Pokemon>) p;
+        return (ArrayList<Pokemon>) pokemon;
     }
 
+    public ArrayList<Pokemon> callStringWS() {
+        new MyTask().execute();
+
+        Call<List<Pokemon>> call2 = service.getNames();
+        try {
+            Response<List<Pokemon>> response = call2.execute();
+            if(response.isSuccessful()) {
+                pokemonNames = response.body();
+                Log.d("pokemon", pokemonNames.get(1).getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (ArrayList<Pokemon>) pokemonNames;
+    }
+
+    static String baseUrl = "http://antoinecervo.com/paul_api/web/index.php/";
     private static Retrofit.Builder mBuilder =
             new Retrofit.Builder()
-                    .baseUrl("http://pokecard.local/index.php/")
+                    .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create());
 
     public static <S> S createService(Class<S> serviceClass) {

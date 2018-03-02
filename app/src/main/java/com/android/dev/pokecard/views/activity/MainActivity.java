@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.rvButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PokemonActivity.class);
-                MainActivity.this.startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, MyPokemonsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -86,15 +86,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        new Thread( new Runnable()
+        /*ùnew Thread( new Runnable()
         {
             @Override
             public void run()
             {
                 try {
+                    String baseUrl = "http://antoinecervo.com/paul_api/web/index.php/user/1/pokemons";
                     //Test request api
                     TextView textviewtest = (TextView) findViewById(R.id.test);
-                    String url = "http://pokecard.local/index.php/test";
+                    String url = baseUrl;
                     JSONObject test = getJSONObjectFromURL(url);
                     textviewtest.setText(test.toString());
                 } catch (IOException e) {
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
-        Toast.makeText(MainActivity.this, "API : OK", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "API : OK", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -113,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,
                 resultCode, data);
     }
-
-
 
 
 
