@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by paulg on 13/12/2017.
  */
 
-public class PokemonManager {
+/*public class PokemonManager {
     private static PokemonManager instance;
 
     private ServicePokemon service;
@@ -92,4 +92,4 @@ public class PokemonManager {
         return retrofit.create(serviceClass);
     }
 
-}
+}*/

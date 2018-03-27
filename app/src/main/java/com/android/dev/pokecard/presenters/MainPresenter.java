@@ -2,13 +2,13 @@ package com.android.dev.pokecard.presenters;
 
 import android.content.Context;
 
-import com.android.dev.pokecard.views.viewsinterfaces.MainView;
+//import com.android.dev.pokecard.views.viewsinterfaces.MainView;
 
 /**
  * Created by iem on 15/11/2017.
  */
 
-public class MainPresenter {
+/*public class MainPresenter {
     private final Context context;
     private final MainView mainView;
 
@@ -17,4 +17,4 @@ public class MainPresenter {
         this.mainView = mainView;
 
     }
-}
+}*/
