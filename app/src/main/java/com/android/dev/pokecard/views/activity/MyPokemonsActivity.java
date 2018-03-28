@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
+import com.android.dev.pokecard.BaseActivity;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonsAdapter;
 import com.android.dev.pokecard.manager.WSManager;
@@ -33,7 +34,7 @@ import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.service.ServicePokemon;
 
 
-public class MyPokemonsActivity extends AppCompatActivity {
+public class MyPokemonsActivity extends BaseActivity {
     @BindView(R.id.rv) RecyclerView mRecyclerView;
 
     @Override

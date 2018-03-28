@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.dev.pokecard.BaseActivity;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.presenters.UserPresenter;
 import com.facebook.CallbackManager;
@@ -31,7 +33,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     CallbackManager callbackManager;
 
     @Override
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.rvButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyPokemonsActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
