@@ -1,7 +1,10 @@
-package com.android.dev.pokecard;
+package com.android.dev.pokecard.views.activity;
 
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.android.dev.pokecard.db.PokeCardDatabase;
 
 import butterknife.ButterKnife;
 
@@ -14,7 +17,6 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 }

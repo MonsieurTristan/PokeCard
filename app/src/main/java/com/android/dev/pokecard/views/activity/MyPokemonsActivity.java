@@ -4,15 +4,11 @@ package com.android.dev.pokecard.views.activity;
  * Created by paulg on 31/01/2018.
  */
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -20,13 +16,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-import com.android.dev.pokecard.BaseActivity;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonsAdapter;
 import com.android.dev.pokecard.manager.WSManager;

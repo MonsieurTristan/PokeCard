@@ -5,7 +5,7 @@
     <string name="drawer_item_pokemon_list">Mes Pokemons</string>
     <string name="drawer_item_friend_list">Mes amis</string>
     <string name="navigation_pokemons">Mes Pokemons</string>
-    <string name="navigation_friends">Mes Amis</string>
+    <string name="navigation_exchange">Échanges</string>
     <string name="navigation_account">Mon compte</string>
     <string name="profile_disconnect">Se déconnecter</string>
 

@@ -1,4 +1,4 @@
-package com.android.dev.pokecard.ui.pokemons;
+package com.android.dev.pokecard.ui.exchanges;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,15 +12,15 @@ import com.android.dev.pokecard.db.PokeCardDatabase;
  * Created by paulg on 28/03/2018.
  */
 
-public class MyPokemonsFragment extends BaseFragment{
+public class ExchangesFragment extends BaseFragment {
 
-    public static MyPokemonsFragment newInstance() {
-        return new MyPokemonsFragment();
+    public static ExchangesFragment newInstance() {
+        return new ExchangesFragment();
     }
 
     @Override
     protected int currentLayout() {
-        return R.layout.fragment_my_pokemons;
+        return R.layout.fragment_exchanges;
     }
 
     @Override

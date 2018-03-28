@@ -2,16 +2,15 @@ package com.android.dev.pokecard.views.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.dev.pokecard.BaseActivity;
 import com.android.dev.pokecard.R;
+import com.android.dev.pokecard.db.PokeCardDatabase;
+import com.android.dev.pokecard.models.facebook.Facebook;
+import com.android.dev.pokecard.models.facebook.User;
 import com.android.dev.pokecard.presenters.UserPresenter;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -35,6 +34,7 @@ import java.net.HttpURLConnection;
 
 public class MainActivity extends BaseActivity {
     CallbackManager callbackManager;
+    private PokeCardDatabase mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +150,12 @@ public class MainActivity extends BaseActivity {
                     public void onCompleted(
                             JSONObject json_object,
                             GraphResponse response) {
+                        if (json_object != null) {
+                           // User user = Facebook.getUser(json_object);
+                        } else {
+                            //new User();
+                        }
+
                         Intent intent = new Intent(MainActivity.this, UserPresenter.class);
                         intent.putExtra("userProfile", json_object.toString());
                         startActivity(intent);
