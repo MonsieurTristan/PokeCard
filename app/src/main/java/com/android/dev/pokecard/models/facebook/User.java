@@ -26,6 +26,8 @@ public class User {
     @ColumnInfo(name = "birthdate")
      String birthdate;
 
+    String pic_url = "https://graph.facebook.com/" + idFacebook + "/picture?type=large";
+
     public User() { }
 
     public User(String idFacebook, String gender, String first_name, String last_name, String email, String birthdate) {
@@ -91,5 +93,13 @@ public class User {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getPic_url() {
+        return pic_url;
+    }
+
+    public void setPic_url(String pic_url) {
+        this.pic_url = pic_url;
     }
 }

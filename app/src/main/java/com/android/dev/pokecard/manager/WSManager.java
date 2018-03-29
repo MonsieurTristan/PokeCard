@@ -2,6 +2,10 @@ package com.android.dev.pokecard.manager;
 
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.service.ServicePokemon;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,12 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WSManager {
     static String baseUrl = "http://antoinecervo.com/boloss_api/web/index.php/";
+    static String urlTestCreation = "http://172.20.10.3";
     private static WSManager instance;
     private static ServicePokemon service;
 
     private static Retrofit.Builder mBuilder =
             new Retrofit.Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(urlTestCreation)
                     .addConverterFactory(GsonConverterFactory.create());
 
     public static WSManager getInstance() {
@@ -68,5 +73,22 @@ public class WSManager {
         }
 
         return pokemons;
+    }
+
+    public void createUser () {
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("id", "69696969696969696969696969");
+        jsonObject.addProperty("name", "Koko");
+        jsonObject.addProperty("firstname", "Tristan");
+
+        Call call = service.createUser(jsonObject);
+
+        try {
+            call.execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

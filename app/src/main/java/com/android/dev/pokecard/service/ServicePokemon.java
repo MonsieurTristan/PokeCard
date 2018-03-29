@@ -1,12 +1,18 @@
 package com.android.dev.pokecard.service;
 
 import com.android.dev.pokecard.models.Pokemon;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 
@@ -35,4 +41,13 @@ public interface ServicePokemon {
 
     @GET("user/1/pokemons")
     Call<List<Pokemon>> getNames();
+
+    /**
+     * POST
+     * Permet de regénérer un mot de passe pour un client donnée.
+     * Le client recevra un mail avec un lien de redéfinition de mot de passe.
+     * @param json eMail du client
+     */
+    @POST("/index.php/createUser")
+    Call<Void> createUser(@Body JsonObject json);
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.android.dev.pokecard.R;
+import com.android.dev.pokecard.manager.WSManager;
 import com.android.dev.pokecard.ui.exchanges.ExchangesFragment;
 import com.android.dev.pokecard.ui.pokemons.MyPokemonsFragment;
 import com.android.dev.pokecard.ui.profile.ProfileFragment;
@@ -53,6 +54,20 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .commit();
 
         mBottomView.setOnNavigationItemSelectedListener(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                 /*final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
+                 runOnUiThread(new Runnable() {
+                     @Override
+                     public void run() {
+                         afficherPokemons(pokemons);
+                     }
+                 });*/
+                WSManager.getInstance().createUser();
+            }
+        }).start();
 
     }
 

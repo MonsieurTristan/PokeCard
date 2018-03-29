@@ -23,8 +23,10 @@ public class PokeCardApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        INSTANCE = this;
+
         mDataBase = Room.inMemoryDatabaseBuilder(this, PokeCardDatabase.class).build();
-        final User user = new User("42", "42", "42", "42", "42", "42");
+        final User user = new User("42", "Homme", "Paul", "Gronier", "paul@gmail.com", "12/10/1995");
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -35,7 +37,6 @@ public class PokeCardApplication extends Application {
                 return null;
             }
         }.execute();
-        INSTANCE = this;
     }
 
     public PokeCardDatabase getmDataBase () {

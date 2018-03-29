@@ -29,7 +29,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(currentLayout(), container, false);
-        mUnbinder = ButterKnife.bind(this, view);
+        //mUnbinder = ButterKnife.bind(this, view);
         //mProgress = view.findViewById(R.id.progressBar);
 
         return view;

@@ -9,13 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.dev.pokecard.BaseFragment;
 import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.R;
-import com.android.dev.pokecard.db.PokeCardDatabase;
+import com.android.dev.pokecard.models.facebook.User;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by paulg on 27/03/2018.
@@ -25,9 +30,11 @@ public class ProfileFragment extends BaseFragment {
 
     String id = "e";
 
+    private User mUser;
+
     PokeCardApplication pokeCardApplication;
 
-    @BindView(R.id.userName)
+    @BindView(R.id.userProfileName)
     TextView mUserNameView;
 
     @BindView(R.id.profilePic)
@@ -52,24 +59,10 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(currentLayout(), container, false);
         //mProgress = view.findViewById(R.id.progressBar);
+        ButterKnife.bind(this, view);
+        getUserInformations();
 
-        new AsyncTask<Void, String, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                id = pokeCardApplication.get().getmDataBase().userDao().getbyId("42").getIdFacebook();
-                //mUserNameView.setText(pokeCardApplication.get().getmDataBase().userDao().getbyId("42").getIdFacebook());
-                publishProgress(id);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-
-            }
-        }.execute();
-        mUserNameView.setText(id);
-
+        //mUserNameView.setText(id);
         return view;
     }
 
@@ -79,5 +72,30 @@ public class ProfileFragment extends BaseFragment {
 
     }
 
+    private void getUserInformations () {
+        new AsyncTask<Void, String, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mUser = pokeCardApplication.get().getmDataBase().userDao().getUser();
+                id = pokeCardApplication.get().getmDataBase().userDao().getUser().getIdFacebook();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                Toast toast = Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT); toast.show();
+                initUI();
+
+            }
+        }.execute();
+    }
+
+    private void initUI () {
+        mUserNameView.setText(mUser.getFirst_name());
+
+        /*Picasso.with(getActivity()).load(mUser.getPic_url())
+                .into(mProfilePicView);*/
+    }
 
 }
