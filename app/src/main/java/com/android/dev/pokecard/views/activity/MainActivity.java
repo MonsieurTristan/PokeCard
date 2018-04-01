@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.db.PokeCardDatabase;
 import com.android.dev.pokecard.models.facebook.Facebook;
 import com.android.dev.pokecard.models.facebook.User;
 import com.android.dev.pokecard.presenters.UserPresenter;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -36,6 +38,9 @@ public class MainActivity extends BaseActivity {
     CallbackManager callbackManager;
     private PokeCardDatabase mDataBase;
 
+    private AccessToken mAccessToken;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +50,11 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button button = (Button) findViewById(R.id.rvButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            if (accessToken != null) {
+                getUserDetails(accessToken);
+
             }
-        });
 
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -59,10 +62,12 @@ public class MainActivity extends BaseActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        //mAccessToken = loginResult.getAccessToken();
+
                         Context context = getApplicationContext();
                         CharSequence text = "Registered";
                         int duration = Toast.LENGTH_SHORT;
-                        getUserDetails(loginResult);
+                        getUserDetails(loginResult.getAccessToken());
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     }
@@ -88,26 +93,6 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
-        /*ùnew Thread( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try {
-                    String baseUrl = "http://antoinecervo.com/paul_api/web/index.php/user/1/pokemons";
-                    //Test request api
-                    TextView textviewtest = (TextView) findViewById(R.id.test);
-                    String url = baseUrl;
-                    JSONObject test = getJSONObjectFromURL(url);
-                    textviewtest.setText(test.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        Toast.makeText(MainActivity.this, "API : OK", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -143,22 +128,25 @@ public class MainActivity extends BaseActivity {
         return new JSONObject(jsonString);
     }
 
-    protected void getUserDetails(LoginResult loginResult) {
+    protected void getUserDetails(AccessToken currentAccessToken) {
         GraphRequest data_request = GraphRequest.newMeRequest(
-                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                currentAccessToken, new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(
                             JSONObject json_object,
                             GraphResponse response) {
                         if (json_object != null) {
-                           // User user = Facebook.getUser(json_object);
+                            User user = Facebook.getUser(json_object);
+                            PokeCardApplication.get().insertUserDB(user);
                         } else {
                             //new User();
                         }
-
-                        Intent intent = new Intent(MainActivity.this, UserPresenter.class);
-                        intent.putExtra("userProfile", json_object.toString());
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
+
+                        /*Intent intent = new Intent(MainActivity.this, UserPresenter.class);
+                        intent.putExtra("userProfile", json_object.toString());
+                        startActivity(intent);*/
                     }
 
                 });

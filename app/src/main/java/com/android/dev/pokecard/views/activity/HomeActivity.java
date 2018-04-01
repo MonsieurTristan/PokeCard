@@ -6,9 +6,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
+import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.manager.WSManager;
+import com.android.dev.pokecard.models.facebook.User;
 import com.android.dev.pokecard.ui.exchanges.ExchangesFragment;
+import com.android.dev.pokecard.ui.pokedex.PokedexFragment;
 import com.android.dev.pokecard.ui.pokemons.MyPokemonsFragment;
 import com.android.dev.pokecard.ui.profile.ProfileFragment;
 
@@ -24,10 +27,12 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
     @BindView(R.id.nav_home)
     BottomNavigationView mBottomView;
 
+    private PokedexFragment mPokedexFragment;
     private MyPokemonsFragment mMyPokemonsFragment;
     private ExchangesFragment mExchangesFragment;
     private ProfileFragment mProfileFragment;
 
+    private User mUser;
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -41,14 +46,19 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        mUser = PokeCardApplication.get().getAppUser();
+
+        mPokedexFragment = PokedexFragment.newInstance();
         mMyPokemonsFragment = MyPokemonsFragment.newInstance();
         mExchangesFragment = ExchangesFragment.newInstance();
         mProfileFragment = ProfileFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
+                .add(R.id.frame_container, mPokedexFragment)
                 .add(R.id.frame_container, mMyPokemonsFragment)
                 .add(R.id.frame_container, mExchangesFragment)
                 .add(R.id.frame_container, mProfileFragment)
+                .hide(mPokedexFragment)
                 .hide(mExchangesFragment)
                 .hide(mProfileFragment)
                 .commit();
@@ -58,23 +68,21 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
         new Thread(new Runnable() {
             @Override
             public void run() {
-                 /*final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
-                 runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         afficherPokemons(pokemons);
-                     }
-                 });*/
-                WSManager.getInstance().createUser();
+                 //GET USER WS Check if null create else do nothing
+                if (WSManager.getInstance().getUserById() == null) {
+                    WSManager.getInstance().createUser(PokeCardApplication.get().getAppUser());
+                }
             }
         }).start();
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             default: break;
+            case R.id.btn_pokedex:
+                showPokedex();
+                break;
             case R.id.btn_my_pokemons:
                 showMyPokemons();
                 break;
@@ -84,7 +92,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
             case R.id.btn_account:
                 showProfile();
                 break;
-
         }
         return true;
     }
@@ -94,6 +101,17 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
         getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .show(mMyPokemonsFragment)
+                .hide(mPokedexFragment)
+                .hide(mExchangesFragment)
+                .hide(mProfileFragment)
+                .commit();
+    }
+
+    private void showPokedex() {
+        getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .show(mPokedexFragment)
+                .hide(mMyPokemonsFragment)
                 .hide(mExchangesFragment)
                 .hide(mProfileFragment)
                 .commit();
@@ -104,6 +122,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .show(mExchangesFragment)
                 .hide(mMyPokemonsFragment)
+                .hide(mPokedexFragment)
                 .hide(mProfileFragment)
                 .commit();
     }
@@ -113,6 +132,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .show(mProfileFragment)
                 .hide(mMyPokemonsFragment)
+                .hide(mPokedexFragment)
                 .hide(mExchangesFragment)
                 .commit();
     }

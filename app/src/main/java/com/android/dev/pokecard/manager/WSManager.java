@@ -1,11 +1,10 @@
 package com.android.dev.pokecard.manager;
 
+import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.models.Pokemon;
+import com.android.dev.pokecard.models.facebook.User;
 import com.android.dev.pokecard.service.ServicePokemon;
 import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public class WSManager {
     public List<Pokemon> getAllPokemon() {
         List<Pokemon> pokemons = new ArrayList<>();
 
-        Call<List<Pokemon>> call = service.getAllPokemonsIds();
+        Call<List<Pokemon>> call = service.getAllPokemonsIds(PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
         try {
             Response<List<Pokemon>> response = call.execute();
             if (response.isSuccessful()) {
@@ -75,12 +74,11 @@ public class WSManager {
         return pokemons;
     }
 
-    public void createUser () {
+    public void createUser (User user) {
         JsonObject jsonObject = new JsonObject();
 
-        jsonObject.addProperty("id", "69696969696969696969696969");
-        jsonObject.addProperty("name", "Koko");
-        jsonObject.addProperty("firstname", "Tristan");
+        jsonObject.addProperty("id", user.getId());
+        jsonObject.addProperty("name", user.getName());
 
         Call call = service.createUser(jsonObject);
 
@@ -91,4 +89,20 @@ public class WSManager {
             e.printStackTrace();
         }
     }
+
+    public User getUserById () {
+        User user = new User();
+        Call <User> call = service.getUserById(
+                PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+        try {
+            Response <User> response = call.execute();
+            if (response.isSuccessful()) {
+                user = response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
+

@@ -36,19 +36,18 @@ public class MyPokemonsActivity extends BaseActivity {
         setContentView(R.layout.pokemon_activity);
         ButterKnife.bind(this);
 
-         new Thread(new Runnable() {
+         /*new Thread(new Runnable() {
              @Override
              public void run() {
-                 /*final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
+                 final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
                  runOnUiThread(new Runnable() {
                      @Override
                      public void run() {
                          afficherPokemons(pokemons);
                      }
-                 });*/
-                 WSManager.getInstance().createUser();
+                 });
              }
-         }).start();
+         }).start();*/
 
     }
 

@@ -15,11 +15,9 @@ import java.util.List;
 
 public class Facebook {
 
-    public static final String GENDER = "gender";
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
-    public static final String EMAIL = "email";
-    public static final String BIRTHDAY = "birthday";
+    public static final String ID_FACEBOOK = "id";
+    public static final String FIRST_NAME = "name";
+
 
     public static final String TAG = Facebook.class.getSimpleName();
 
@@ -28,7 +26,7 @@ public class Facebook {
 
         try {
             String id = object.getString("id");
-            bundle.putString("idFacebook", id);
+            bundle.putString("id", id);
 
             if(pic) {
                 URL profile_pic;
@@ -46,7 +44,7 @@ public class Facebook {
                     bundle.putString(arg, object.getString(arg));
             }
 
-//            prefUtil.saveFacebookUserInfo(object.getString("first_name"),
+//            prefUtil.saveFacebookUserInfo(object.getString("name"),
 //                    object.getString("last_name"),object.getString("email"),
 //                    object.getString("gender"), profile_pic.toString());
 
@@ -60,11 +58,8 @@ public class Facebook {
     public static User getUser(JSONObject object) {
         User user = new User();
         try {
-            if (object.has(GENDER)) user.gender = object.getString(GENDER);
-            if (object.has(FIRST_NAME)) user.first_name = object.getString(FIRST_NAME);
-            if (object.has(LAST_NAME)) user.last_name = object.getString(LAST_NAME);
-            if (object.has(EMAIL)) user.email = object.getString(EMAIL);
-            if (object.has(BIRTHDAY)) user.birthdate = object.getString(BIRTHDAY);
+            if (object.has(ID_FACEBOOK)) user.id = object.getString(ID_FACEBOOK);
+            if (object.has(FIRST_NAME)) user.name = object.getString(FIRST_NAME);
         } catch (JSONException e) {
             e.printStackTrace();
         }

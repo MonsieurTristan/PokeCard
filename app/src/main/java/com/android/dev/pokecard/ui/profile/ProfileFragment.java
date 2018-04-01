@@ -1,5 +1,6 @@
 package com.android.dev.pokecard.ui.profile;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +16,13 @@ import com.android.dev.pokecard.BaseFragment;
 import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.models.facebook.User;
+import com.android.dev.pokecard.views.activity.MainActivity;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -28,17 +32,13 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfileFragment extends BaseFragment {
 
-    String id = "e";
-
     private User mUser;
-
-    PokeCardApplication pokeCardApplication;
 
     @BindView(R.id.userProfileName)
     TextView mUserNameView;
 
-    @BindView(R.id.profilePic)
-    ImageView mProfilePicView;
+    ImageView profilePictureView;
+
 
     @BindView(R.id.userId)
     TextView mUserIdView;
@@ -62,13 +62,13 @@ public class ProfileFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         getUserInformations();
 
-        //mUserNameView.setText(id);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        profilePictureView = (ImageView) getView().findViewById(R.id.profilePic);
 
     }
 
@@ -77,25 +77,30 @@ public class ProfileFragment extends BaseFragment {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                mUser = pokeCardApplication.get().getmDataBase().userDao().getUser();
-                id = pokeCardApplication.get().getmDataBase().userDao().getUser().getIdFacebook();
+                mUser = PokeCardApplication.get().getAppUser();
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result) {
-                Toast toast = Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT); toast.show();
                 initUI();
-
             }
         }.execute();
     }
 
     private void initUI () {
-        mUserNameView.setText(mUser.getFirst_name());
+        mUserNameView.setText(mUser.getName());
 
-        /*Picasso.with(getActivity()).load(mUser.getPic_url())
-                .into(mProfilePicView);*/
+        Picasso.with(getActivity()).load(mUser.getPic_url())
+                .into(profilePictureView);
+
+    }
+
+    @OnClick(R.id.button_fb_disconnect)
+    public void onFbDisconnectClick() {
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 
 }

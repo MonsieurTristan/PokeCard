@@ -26,7 +26,7 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
-    @Query("SELECT * FROM User WHERE idFacebook = :idFacebook")
+    @Query("SELECT * FROM User WHERE id = :idFacebook")
     User getbyId(String idFacebook);
 
     @Query("SELECT * FROM User")
