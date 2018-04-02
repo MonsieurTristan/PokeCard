@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">PokeCard</string>
-    <string name="facebook_app_id">163548737715342</string>
-    <string name="fb_login_protocol_scheme">fb163548737715342</string>
+    <string name="facebook_app_id">293763521111834</string>
+    <string name="fb_login_protocol_scheme">fb293763521111834</string>
+    <string name="drawer_item_pokemon_list">Mes Pokemons</string>
+    <string name="drawer_item_friend_list">Mes amis</string>
+    <string name="navigation_pokedex">Pokedex</string>
+    <string name="navigation_pokemons">Mes Pokemons</string>
+    <string name="navigation_exchange">Échanges</string>
+    <string name="navigation_account">Mon compte</string>
+    <string name="profile_disconnect">Se déconnecter</string>
+
+
+
 </resources>
