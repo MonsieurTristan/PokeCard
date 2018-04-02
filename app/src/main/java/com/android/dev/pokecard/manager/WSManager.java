@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WSManager {
     static String baseUrl = "http://antoinecervo.com/boloss_api/web/index.php/";
     static String urlTestCreation = "http://172.20.10.3";
+    //static String urlTestCreation = "http://10.0.2.2";
     private static WSManager instance;
     private static ServicePokemon service;
 
@@ -58,10 +59,26 @@ public class WSManager {
         return retrofit.create(serviceClass);
     }
 
-    public List<Pokemon> getAllPokemon() {
+    public List<Pokemon> getPokemonByUserId() {
         List<Pokemon> pokemons = new ArrayList<>();
 
         Call<List<Pokemon>> call = service.getAllPokemonsIds(PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+        try {
+            Response<List<Pokemon>> response = call.execute();
+            if (response.isSuccessful()) {
+                pokemons = response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return pokemons;
+    }
+
+    public List<Pokemon> getAllPokemon() {
+        List<Pokemon> pokemons = new ArrayList<>();
+
+        Call<List<Pokemon>> call = service.getAllPokemons();
         try {
             Response<List<Pokemon>> response = call.execute();
             if (response.isSuccessful()) {

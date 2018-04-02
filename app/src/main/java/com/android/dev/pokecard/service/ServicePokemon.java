@@ -34,6 +34,13 @@ public interface ServicePokemon {
 
     /**
      * GET
+     * Récupération de tout les pokemons
+     */
+    @GET("/index.php/getAllPokemon")
+    Call<List<Pokemon>> getAllPokemons();
+
+    /**
+     * GET
      * Récupération du User
      * @param userId Identifiant du user
      */

@@ -39,7 +39,7 @@ public class MyPokemonsActivity extends BaseActivity {
          /*new Thread(new Runnable() {
              @Override
              public void run() {
-                 final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
+                 final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
                  runOnUiThread(new Runnable() {
                      @Override
                      public void run() {

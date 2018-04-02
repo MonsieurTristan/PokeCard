@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.android.dev.pokecard.db.PokeCardDatabase;
+import com.android.dev.pokecard.manager.MyPokemonManager;
 import com.android.dev.pokecard.manager.WSManager;
+import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.models.facebook.User;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -31,6 +33,7 @@ public class PokeCardApplication extends Application {
         super.onCreate();
         INSTANCE = this;
         WSManager.getInstance();
+        MyPokemonManager.getInstance();
         mDataBase = Room.inMemoryDatabaseBuilder(this, PokeCardDatabase.class).build();
         //final User user = new User("42", "PaulG");
 

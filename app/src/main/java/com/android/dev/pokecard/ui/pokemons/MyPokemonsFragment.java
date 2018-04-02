@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.dev.pokecard.BaseFragment;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonsAdapter;
+import com.android.dev.pokecard.manager.MyPokemonManager;
 import com.android.dev.pokecard.manager.WSManager;
 import com.android.dev.pokecard.models.Pokemon;
 
@@ -48,7 +49,7 @@ public class MyPokemonsFragment extends BaseFragment{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
+                final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

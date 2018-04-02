@@ -11,6 +11,15 @@ public class Pokemon {
 
     private String id;
 
+    private boolean owned=false;
+
+    public boolean isOwned() {
+        return owned;
+    }
+
+    public void setOwned(boolean owned) {
+        this.owned = owned;
+    }
 
     public Pokemon(String name, String id) {
         this.name = name;
