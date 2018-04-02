@@ -28,7 +28,7 @@ public class UserPresenter extends AppCompatActivity {
         String jsondata = intent.getStringExtra("userProfile");
         Log.w("Jsondata", jsondata);
         TextView user_name = (TextView) findViewById(R.id.userName);
-        ImageView user_picture = (ImageView) findViewById(R.id.profilePic);
+        //ImageView user_picture = (ImageView) findViewById(R.id.profilePic);
         TextView user_email = (TextView) findViewById(R.id.email);
         TextView user_id = (TextView) findViewById(R.id.userId);
 
@@ -39,8 +39,8 @@ public class UserPresenter extends AppCompatActivity {
             user_id.setText(response.get("id").toString());
             profile_pic_data = new JSONObject(response.get("picture").toString());
             profile_pic_url = new JSONObject(profile_pic_data.getString("data"));
-            Picasso.with(this).load(profile_pic_url.getString("url"))
-                    .into(user_picture);
+            /*Picasso.with(this).load(profile_pic_url.getString("url"))
+                    .into(user_picture);*/
 
         } catch(Exception e){
             e.printStackTrace();

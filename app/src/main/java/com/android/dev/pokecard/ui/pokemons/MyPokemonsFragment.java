@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by paulg on 28/03/2018.
  */
 
-public class MyPokemonsFragment extends BaseFragment{
+public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.OnItemListener{
 
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
@@ -70,9 +70,13 @@ public class MyPokemonsFragment extends BaseFragment{
 
     public void afficherPokemons(List<Pokemon> pokemons) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(new PokemonsAdapter(getActivity(), pokemons));
+        mRecyclerView.setAdapter(new PokemonsAdapter(getActivity(), pokemons, this));
         Toast.makeText(getActivity(),"nombre de Pokemon : "+ pokemons.size(),Toast.LENGTH_SHORT).show();
     }
 
 
+    @Override
+    public void onClickItem(Pokemon pokemon) {
+
+    }
 }

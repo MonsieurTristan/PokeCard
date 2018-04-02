@@ -37,7 +37,7 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.userProfileName)
     TextView mUserNameView;
 
-    @BindView(R.id.img_profile) ImageView profilePictureView;
+    ImageView profilePictureView;
 
 
     @BindView(R.id.userId)
@@ -60,6 +60,7 @@ public class ProfileFragment extends BaseFragment {
         View view = inflater.inflate(currentLayout(), container, false);
         //mProgress = view.findViewById(R.id.progressBar);
         ButterKnife.bind(this, view);
+
         getUserInformations();
 
         return view;
@@ -68,7 +69,7 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profilePictureView = (ImageView) getView().findViewById(R.id.profilePic);
+        profilePictureView = (ImageView) view.findViewById(R.id.profilePic);
 
     }
 
@@ -89,10 +90,11 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void initUI () {
+
         mUserNameView.setText(mUser.getName());
 
-        Picasso.with(getActivity()).load(mUser.getPic_url())
-                .into(profilePictureView);
+        /*Picasso.with(getActivity().getApplicationContext()).load(mUser.getPic_url())
+                .into(profilePictureView);*/
 
     }
 
