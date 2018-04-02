@@ -37,7 +37,7 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.userProfileName)
     TextView mUserNameView;
 
-    ImageView profilePictureView;
+    @BindView(R.id.img_profile) ImageView profilePictureView;
 
 
     @BindView(R.id.userId)

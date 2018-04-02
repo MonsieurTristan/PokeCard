@@ -42,10 +42,18 @@ public interface ServicePokemon {
 
     /**
      * POST
-     * Permet de regénérer un mot de passe pour un client donnée.
-     * Le client recevra un mail avec un lien de redéfinition de mot de passe.
-     * @param json eMail du client
+     * Créer un user
+     * @param json
      */
     @POST("/index.php/createUser")
     Call<Void> createUser(@Body JsonObject json);
+
+    /**
+     * POST
+     * Créer un échange
+     * @param json
+     */
+    @POST("/index.php/createExchange")
+    Call<Void> createExchange(@Body JsonObject json);
+
 }

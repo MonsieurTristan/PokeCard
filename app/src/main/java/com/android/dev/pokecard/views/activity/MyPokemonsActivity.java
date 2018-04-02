@@ -4,6 +4,7 @@ package com.android.dev.pokecard.views.activity;
  * Created by paulg on 31/01/2018.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +28,7 @@ import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.service.ServicePokemon;
 
 
-public class MyPokemonsActivity extends BaseActivity {
+public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.OnItemListener{
     @BindView(R.id.rv) RecyclerView mRecyclerView;
 
     @Override
@@ -36,24 +37,16 @@ public class MyPokemonsActivity extends BaseActivity {
         setContentView(R.layout.pokemon_activity);
         ButterKnife.bind(this);
 
-         /*new Thread(new Runnable() {
-             @Override
-             public void run() {
-                 final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
-                 runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         afficherPokemons(pokemons);
-                     }
-                 });
-             }
-         }).start();*/
+         new Thread(() -> {
+             final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
+             runOnUiThread(() -> afficherPokemons(pokemons));
+         }).start();
 
     }
 
     public void afficherPokemons(List<Pokemon> pokemons) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MyPokemonsActivity.this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(new PokemonsAdapter(MyPokemonsActivity.this, pokemons));
+        mRecyclerView.setAdapter(new PokemonsAdapter(MyPokemonsActivity.this, pokemons, this));
         Toast.makeText(this,"nombre de Pokemon : "+pokemons.size(),Toast.LENGTH_SHORT).show();
     }
 
@@ -81,6 +74,11 @@ public class MyPokemonsActivity extends BaseActivity {
         return retrofit.create(ServicePokemon.class);
     }
 
+    @Override
+    public void onClickItem(Pokemon pokemon) {
+        Intent intent = new Intent(MyPokemonsActivity.this, MyPokemonsActivity.class);
+        startActivity(intent);
+    }
 }
 
 

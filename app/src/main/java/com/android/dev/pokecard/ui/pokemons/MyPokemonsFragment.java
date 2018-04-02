@@ -48,7 +48,7 @@ public class MyPokemonsFragment extends BaseFragment{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
+                final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
