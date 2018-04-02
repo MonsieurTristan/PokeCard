@@ -26,8 +26,15 @@ public class PokemonsAdapter extends RecyclerView.Adapter<PokemonsAdapter.Pokemo
 
     private Context mContext;
     private List<Pokemon> mPokemons;
+    private final OnItemListener mListener;
 
-    public PokemonsAdapter(Context context, List<Pokemon> pokemons) {
+
+    public interface OnItemListener {
+        void onClickItem(Pokemon pokemon);
+    }
+
+    public PokemonsAdapter(Context context, List<Pokemon> pokemons, OnItemListener listener) {
+        mListener = listener;
         mContext = context;
         mPokemons = pokemons;
     }
@@ -40,7 +47,7 @@ public class PokemonsAdapter extends RecyclerView.Adapter<PokemonsAdapter.Pokemo
 
     @Override
     public void onBindViewHolder(PokemonHolder holder, int position) {
-        holder.bind(mPokemons.get(position));
+        holder.bind(mPokemons.get(position), position);
     }
 
     @Override
@@ -63,11 +70,12 @@ public class PokemonsAdapter extends RecyclerView.Adapter<PokemonsAdapter.Pokemo
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Pokemon pokemon) {
+
+        public void bind(final Pokemon pokemon, int position) {
             Picasso.with(mContext).load(pokemon.getPhotoUrl())
                     .into(mPokemonImageView);
             mPokemonNameView.setText(pokemon.getName());
-            //mView.setOnClickListener(v -> mListener.onItemClick(storeList));
+            mView.setOnClickListener(v -> mListener.onClickItem(pokemon));
         }
     }
 }

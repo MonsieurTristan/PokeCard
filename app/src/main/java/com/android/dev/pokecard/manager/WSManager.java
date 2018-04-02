@@ -1,6 +1,7 @@
 package com.android.dev.pokecard.manager;
 
 import com.android.dev.pokecard.PokeCardApplication;
+import com.android.dev.pokecard.models.Exchange;
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.models.facebook.User;
 import com.android.dev.pokecard.service.ServicePokemon;
@@ -120,6 +121,10 @@ public class WSManager {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public void createExchange () {
+        Exchange exchange = new Exchange();
     }
 }
 
