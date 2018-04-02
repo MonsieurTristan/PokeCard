@@ -25,11 +25,12 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexH
 
     List<Pokemon> pokemons;
     Context context;
+    private final OnClickListener listener;
 
-    public PokedexAdapter(Context context, List<Pokemon> pokemon) {
+    public PokedexAdapter(Context context, List<Pokemon> pokemon, OnClickListener listener) {
         this.pokemons = pokemon;
         this.context = context;
-
+        this.listener = listener;
     }
 
     @Override
@@ -55,6 +56,11 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexH
 
 
 
+    public interface OnClickListener{
+        public void displayPokemon(Pokemon pokemon);
+    }
+
+
     public class PokedexHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.pokemonImage)
         ImageView pokemonImageView;
@@ -67,7 +73,9 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexH
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Pokemon pokemon) {
+        public void bind(final Pokemon pokemon) {
+            mView.setOnClickListener(v -> listener.displayPokemon(pokemon));
+
             pokemonImageView.setColorFilter(null);
             Picasso.with(context).load(pokemon.getPhotoUrl())
                     .into(this.pokemonImageView);

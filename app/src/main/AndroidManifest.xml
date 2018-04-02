@@ -3,6 +3,7 @@
     package="com.android.dev.pokecard">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application
