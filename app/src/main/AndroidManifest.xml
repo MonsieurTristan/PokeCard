@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".views.activity.MainActivity">
+        <activity android:name=".views.activity.MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +25,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="@string/app_name" android:name=".presenters.UserPresenter"/>
+        <activity android:label="@string/app_name" android:name=".presenters.UserPresenter"
+            android:screenOrientation="portrait"
+            />
 
-        <activity android:name=".views.activity.HomeActivity"/>
+        <activity android:name=".views.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            />
 
-        <activity android:name=".views.activity.MyPokemonsActivity"/>
+        <activity android:name=".ui.exchanges.MyPokemonsActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ui.exchanges.WantedExchangeActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ui.exchanges.ValidationExchangeActivity"
+            android:screenOrientation="portrait"
+            />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

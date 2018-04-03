@@ -55,7 +55,7 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
         //mProgress = view.findViewById(R.id.progressBar);
         ButterKnife.bind(this, view);
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
@@ -72,7 +72,7 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
                     }
                 });
             }
-        }).start();
+        }).start();*/
 
 
         return view;
@@ -81,7 +81,7 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
 
 
 
-    public void initPokedexRecyclerView(List<Pokemon> pokemons){
+    public void initPokedexRecyclerView(List<Pokemon> pokemons) {
 
         pokedexRecyclerView.setHasFixedSize(true);
 
@@ -129,4 +129,5 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
             toast.show();
         }
     }
+
 }

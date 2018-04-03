@@ -9,6 +9,14 @@
     <string name="navigation_exchange">Échanges</string>
     <string name="navigation_account">Mon compte</string>
     <string name="profile_disconnect">Se déconnecter</string>
+    <string name="btn_validate_exchange_ask">Valider demande d\'échange</string>
+    <string name="btn_validate_exchange">Échanger</string>
+    <string name="btn_all_exchanges">Échanges disponibles</string>
+    <string name="btn_my_exchanges">Mes échanges</string>
+
+
+
+
 
 
 

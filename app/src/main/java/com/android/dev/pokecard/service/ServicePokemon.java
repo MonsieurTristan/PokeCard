@@ -1,5 +1,6 @@
 package com.android.dev.pokecard.service;
 
+import com.android.dev.pokecard.models.Exchange;
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.models.facebook.User;
 import com.google.gson.JsonObject;
@@ -38,6 +39,20 @@ public interface ServicePokemon {
      */
     @GET("/index.php/getAllPokemon")
     Call<List<Pokemon>> getAllPokemons();
+
+    /**
+     * GET
+     * Récupération de tout les pokemons
+     */
+    @GET("/index.php/getUsersExchanges/{userId}")
+    Call<List<Exchange>> getExchanges(@Path("userId") String userId);
+
+    /**
+     * GET
+     * Récupération de tout les pokemons
+     */
+    @GET("/index.php/getMyExchanges/{userId}")
+    Call<List<Exchange>> getMyExchanges(@Path("userId") String userId);
 
     /**
      * GET

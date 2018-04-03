@@ -30,8 +30,11 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
 
+    MyPokemonManager myPokemonManager = MyPokemonManager.getInstance();
+
 
     public static MyPokemonsFragment newInstance() {
+
         return new MyPokemonsFragment();
     }
 
@@ -46,17 +49,11 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
         //mProgress = view.findViewById(R.id.progressBar);
         ButterKnife.bind(this, view);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        afficherPokemons(pokemons);
-                    }
-                });
-            }
+        new Thread(() -> {
+            final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
+            myPokemonManager.setMypokemons(pokemons);
+
+            getActivity().runOnUiThread(() -> afficherPokemons(pokemons));
         }).start();
 
         return view;

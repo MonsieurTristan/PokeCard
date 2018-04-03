@@ -25,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WSManager {
     static String baseUrl = "http://antoinecervo.com/boloss_api/web/index.php/";
+    //static String urlTestCreation = "http://192.168.44.3";
     static String urlTestCreation = "http://172.20.10.3";
     //static String urlTestCreation = "http://10.0.2.2";
     private static WSManager instance;
@@ -108,6 +109,7 @@ public class WSManager {
         }
     }
 
+
     public User getUserById () {
         User user = new User();
         Call <User> call = service.getUserById(
@@ -123,8 +125,54 @@ public class WSManager {
         return user;
     }
 
-    public void createExchange () {
-        Exchange exchange = new Exchange();
+    public void createExchange (String idPokemon1, String idPokemon2) {
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("iduser1", PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+        jsonObject.addProperty("idpokemon1", idPokemon1);
+        jsonObject.addProperty("idpokemon2", idPokemon2);
+
+        Call call = service.createExchange(jsonObject);
+
+        try {
+            call.execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public List<Exchange> getExchanges() {
+        List<Exchange> exchanges = new ArrayList<>();
+
+        Call<List<Exchange>> call = service.getExchanges(PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+        try {
+            Response<List<Exchange>> response = call.execute();
+            if (response.isSuccessful()) {
+                exchanges = response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return exchanges;
+    }
+
+    public List<Exchange> getMyExchanges() {
+        List<Exchange> exchanges = new ArrayList<>();
+
+        Call<List<Exchange>> call = service.getMyExchanges(PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+        try {
+            Response<List<Exchange>> response = call.execute();
+            if (response.isSuccessful()) {
+                exchanges = response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return exchanges;
     }
 }
 

@@ -37,8 +37,8 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.userProfileName)
     TextView mUserNameView;
 
-    ImageView profilePictureView;
-
+    @BindView(R.id.img_profile)
+    ImageView mProfilView;
 
     @BindView(R.id.userId)
     TextView mUserIdView;
@@ -69,7 +69,6 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profilePictureView = (ImageView) view.findViewById(R.id.profilePic);
 
     }
 
@@ -93,8 +92,8 @@ public class ProfileFragment extends BaseFragment {
 
         mUserNameView.setText(mUser.getName());
 
-        /*Picasso.with(getActivity().getApplicationContext()).load(mUser.getPic_url())
-                .into(profilePictureView);*/
+        Picasso.with(getActivity().getApplicationContext()).load("https://graph.facebook.com/" + mUser.getId() + "/picture?type=large")
+                .into(mProfilView);
 
     }
 

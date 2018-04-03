@@ -1,10 +1,9 @@
-package com.android.dev.pokecard.views.activity;
+package com.android.dev.pokecard.ui.exchanges;
 
 /**
  * Created by paulg on 31/01/2018.
  */
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +22,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokemonsAdapter;
+import com.android.dev.pokecard.manager.MyPokemonManager;
 import com.android.dev.pokecard.manager.WSManager;
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.service.ServicePokemon;
+import com.android.dev.pokecard.views.activity.BaseActivity;
 
 
 public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.OnItemListener{
+
+    MyPokemonManager myPokemonManager = MyPokemonManager.getInstance();
+
+
     @BindView(R.id.rv) RecyclerView mRecyclerView;
 
     @Override
@@ -38,8 +43,8 @@ public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.
         ButterKnife.bind(this);
 
          new Thread(() -> {
-             final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
-             runOnUiThread(() -> afficherPokemons(pokemons));
+             //final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
+             runOnUiThread(() -> afficherPokemons(myPokemonManager.getMypokemons()));
          }).start();
 
     }
@@ -47,11 +52,11 @@ public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.
     public void afficherPokemons(List<Pokemon> pokemons) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(MyPokemonsActivity.this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(new PokemonsAdapter(MyPokemonsActivity.this, pokemons, this));
-        Toast.makeText(this,"nombre de Pokemon : "+pokemons.size(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"nombre de Pokemon : "+ pokemons.size(),Toast.LENGTH_SHORT).show();
     }
 
 
-    private ServicePokemon initRetrofit() {
+    /*private ServicePokemon initRetrofit() {
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
                         //.baseUrl("https://pokeapi.co/api/v2/")
@@ -72,12 +77,11 @@ public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.
         OkHttpClient httpClient = okBuilder.build();
         Retrofit retrofit = mBuilder.client(httpClient).build();
         return retrofit.create(ServicePokemon.class);
-    }
+    }*/
 
     @Override
     public void onClickItem(Pokemon pokemon) {
-        Intent intent = new Intent(MyPokemonsActivity.this, MyPokemonsActivity.class);
-        startActivity(intent);
+        startActivity(WantedExchangeActivity.newIntent(this, pokemon.getId()));
     }
 }
 

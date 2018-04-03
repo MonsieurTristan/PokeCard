@@ -27,6 +27,14 @@ public class Exchange {
     @ColumnInfo(name = "status")
     String status;
 
+    public Exchange (String idExchange, String userId, String idPokemon1, String idPokemon2, String statusExchange) {
+        id = idExchange;
+        iduser1 = userId;
+        idpokemon1 = idPokemon1;
+        idpokemon2 = idPokemon2;
+        status = statusExchange;
+    }
+
     @NonNull
     public String getId() {
         return id;

@@ -136,4 +136,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .hide(mExchangesFragment)
                 .commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }
