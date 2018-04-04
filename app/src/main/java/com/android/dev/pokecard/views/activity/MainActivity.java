@@ -2,6 +2,8 @@ package com.android.dev.pokecard.views.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,10 +47,16 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Init Facebook SDK
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
 
+        if(!isOnline()) {
+            Intent intent = new Intent(MainActivity.this, RetryActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             if (accessToken != null) {
@@ -130,30 +138,25 @@ public class MainActivity extends BaseActivity {
 
     protected void getUserDetails(AccessToken currentAccessToken) {
         GraphRequest data_request = GraphRequest.newMeRequest(
-                currentAccessToken, new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(
-                            JSONObject json_object,
-                            GraphResponse response) {
-                        if (json_object != null) {
-                            User user = Facebook.getUser(json_object);
-                            PokeCardApplication.get().insertUserDB(user);
-                        } else {
-                            //new User();
-                        }
-                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(intent);
-
-                        /*Intent intent = new Intent(MainActivity.this, UserPresenter.class);
-                        intent.putExtra("userProfile", json_object.toString());
-                        startActivity(intent);*/
+                currentAccessToken, (json_object, response) -> {
+                    if (json_object != null) {
+                        User user = Facebook.getUser(json_object);
+                        PokeCardApplication.get().insertUserDB(user);
                     }
-
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
                 });
         Bundle permission_param = new Bundle();
         permission_param.putString("fields", "id,name,email,picture.width(120).height(120)");
         data_request.setParameters(permission_param);
         data_request.executeAsync();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
     }
 
 }

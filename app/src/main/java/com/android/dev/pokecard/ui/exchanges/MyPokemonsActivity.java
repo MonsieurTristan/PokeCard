@@ -33,7 +33,6 @@ public class MyPokemonsActivity extends BaseActivity implements PokemonsAdapter.
 
     MyPokemonManager myPokemonManager = MyPokemonManager.getInstance();
 
-
     @BindView(R.id.rv) RecyclerView mRecyclerView;
 
     @Override

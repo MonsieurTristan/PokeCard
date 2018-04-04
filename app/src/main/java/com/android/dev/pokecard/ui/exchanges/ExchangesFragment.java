@@ -52,13 +52,12 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
         //mProgress = view.findViewById(R.id.progressBar);
         ButterKnife.bind(this, view);
 
-        showExchanges();
+        onOtherExchangesClick();
 
         initUI(view);
 
         return view;
     }
-
 
 
     @Override
@@ -77,22 +76,58 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
 
     @OnClick(R.id.button_other_exchanges)
     public void onOtherExchangesClick () {
-        showExchanges();
+        new Thread(() -> {
+            final List<Exchange> exchanges = WSManager.getInstance().getExchanges();
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showExchanges(exchanges, 0);
+                }
+            });
+
+    }).start();
     }
 
     @OnClick(R.id.button_my_exchanges)
     public void onMyExchangesClick () {
-        showMyExchanges();
+        new Thread(() -> {
+            final List<Exchange> exchanges = WSManager.getInstance().getMyExchanges();
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showExchanges(exchanges, 1);
+                }
+            });
+
+        }).start();
     }
 
-    private void showExchanges () {
-        new Thread(() -> {
-            final List<Exchange> exchanges = WSManager.getInstance().getExchanges();
+    private void showExchanges (List<Exchange> exchanges, int typeView) {
+        mRecyclerView.setLayoutManager(
+                new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, typeView, ExchangesFragment.this));
 
-            getActivity().runOnUiThread(() -> mRecyclerView.setLayoutManager(
+       /* new Thread(() -> {
+            //final List<Exchange> exchanges = WSManager.getInstance().getExchanges();
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mRecyclerView.setLayoutManager(
+                            new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                    mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, ExchangesFragment.this));
+                }
+            });
+
+            getActivity().runOnUiThread(() ->
+                    mRecyclerView.setLayoutManager(
                     new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-            mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, this));
-        }).start();
+                    mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, ExchangesFragment.this));
+            );
+
+        }).start();*/
     }
 
     private void showMyExchanges () {
@@ -101,7 +136,7 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
 
             getActivity().runOnUiThread(() -> mRecyclerView.setLayoutManager(
                     new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-            mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, this));
+            mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, 1, this));
         }).start();
     }
 

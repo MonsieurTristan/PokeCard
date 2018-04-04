@@ -1,5 +1,9 @@
 package com.android.dev.pokecard.views.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -65,15 +69,19 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
         mBottomView.setOnNavigationItemSelectedListener(this);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                 //GET USER WS Check if null create else do nothing
+        if (isOnline()) {
+            new Thread(() -> {
+                //GET USER WS Check if null create else do nothing
                 if (WSManager.getInstance().getUserById() == null) {
                     WSManager.getInstance().createUser(PokeCardApplication.get().getAppUser());
                 }
-            }
-        }).start();
+            }).start();
+        } else {
+            Intent intent = new Intent(HomeActivity.this, RetryActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     @Override
@@ -137,8 +145,15 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .commit();
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnected();
+    }
+
     @Override
     public void onBackPressed() {
-        finishAffinity();
+        //finishAffinity();
     }
 }

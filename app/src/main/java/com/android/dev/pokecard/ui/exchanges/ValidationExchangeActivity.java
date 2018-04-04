@@ -68,7 +68,7 @@ public class ValidationExchangeActivity extends BaseActivity {
     public void onValidateExchange () {
         new Thread(() -> {
             WSManager.getInstance().createExchange(mPokemonDonateId, mPokemonWantedId);
-            runOnUiThread(() -> finishAffinity());
+            runOnUiThread(() -> finish());
         }).start();
     }
 

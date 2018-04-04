@@ -11,8 +11,11 @@
     <string name="profile_disconnect">Se déconnecter</string>
     <string name="btn_validate_exchange_ask">Valider demande d\'échange</string>
     <string name="btn_validate_exchange">Échanger</string>
+    <string name="btn_cancel_exchange">Supprimer</string>
     <string name="btn_all_exchanges">Échanges disponibles</string>
     <string name="btn_my_exchanges">Mes échanges</string>
+    <string name="btn_retry">Réessayer</string>
+
 
 
 

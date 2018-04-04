@@ -24,9 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class WSManager {
-    static String baseUrl = "http://antoinecervo.com/boloss_api/web/index.php/";
+    static String baseUrl = "http://antoinecervo.com/boloss_api/";
+    static String urlTestCreation = "http://antoinecervo.com";
     //static String urlTestCreation = "http://192.168.44.3";
-    static String urlTestCreation = "http://172.20.10.3";
+    //static String urlTestCreation = "http://172.20.10.3";
     //static String urlTestCreation = "http://10.0.2.2";
     private static WSManager instance;
     private static ServicePokemon service;

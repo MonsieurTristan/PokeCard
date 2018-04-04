@@ -1,6 +1,9 @@
 package com.android.dev.pokecard.views.activity;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -19,4 +22,6 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
     }
+
+
 }

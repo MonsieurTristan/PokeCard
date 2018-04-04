@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.dev.pokecard.R;
-import com.android.dev.pokecard.adapter.PokemonsAdapter;
 import com.android.dev.pokecard.models.Exchange;
-import com.android.dev.pokecard.models.Pokemon;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,13 +26,15 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
     private Context mContext;
     private List<Exchange> mExchanges;
     private final ExchangeAdapter.OnItemListener mListener;
+    private int mTypeView;
 
 
     public interface OnItemListener {
         void onClickItem(Exchange exchange);
     }
 
-    public ExchangeAdapter(Context context, List<Exchange> exchanges, OnItemListener listener) {
+    public ExchangeAdapter(Context context, List<Exchange> exchanges, int typeView, OnItemListener listener) {
+        mTypeView = typeView;
         mListener = listener;
         mContext = context;
         mExchanges = exchanges;
@@ -77,12 +76,18 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
         public ExchangeHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            //imageView = (ImageView)itemView.findViewById(R.id.img_pokemon);
             ButterKnife.bind(this, itemView);
         }
 
 
         public void bind(final Exchange exchange, int position) {
+            if (mTypeView == 0) {
+                mValidateExchangeButton.setText(R.string.btn_validate_exchange);
+            }
+
+            if (mTypeView == 1) {
+                mValidateExchangeButton.setText(R.string.btn_cancel_exchange);
+            }
 
             Picasso.with(mContext).load("https://graph.facebook.com/" + exchange.getIduser1() + "/picture?type=large")
                     .into(mProfilView);

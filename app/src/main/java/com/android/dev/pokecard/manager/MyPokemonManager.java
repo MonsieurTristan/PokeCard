@@ -9,9 +9,7 @@ public class MyPokemonManager {
 
 
     private static MyPokemonManager instance;
-    private List<Pokemon> mypokemons = new ArrayList<Pokemon>();
-
-
+    private List<Pokemon> mypokemons = new ArrayList<>();
 
     public static MyPokemonManager getInstance() {
         if (instance == null) {

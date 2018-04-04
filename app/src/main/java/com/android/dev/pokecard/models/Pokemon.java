@@ -1,15 +1,23 @@
 package com.android.dev.pokecard.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created by paulg on 14/11/2017.
  */
 
+@Entity
 public class Pokemon {
 
-    //@SerializedName("name")
-    private String name;
-
+    @PrimaryKey  @NonNull
     private String id;
+
+    @ColumnInfo(name = "name")
+    private String name;
 
     private boolean owned=false;
 

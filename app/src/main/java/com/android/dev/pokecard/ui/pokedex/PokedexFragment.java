@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.dev.pokecard.BaseFragment;
+import com.android.dev.pokecard.PokeCardApplication;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.adapter.PokedexAdapter;
 import com.android.dev.pokecard.manager.MyPokemonManager;
@@ -55,32 +56,24 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
         //mProgress = view.findViewById(R.id.progressBar);
         ButterKnife.bind(this, view);
 
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
-                final List<Pokemon> mypokemons = WSManager.getInstance().getPokemonByUserId();
+        new Thread(() -> {
+            final List<Pokemon> pokemons = PokeCardApplication.get().getmDataBase().pokedexDao().getPokedex();
+            final List<Pokemon> mypokemons = WSManager.getInstance().getPokemonByUserId();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        myPokemonManager.setMypokemons(mypokemons);
-                        for (Pokemon pokemon: pokemons ) {
-                            pokemon.setOwned(myPokemonManager.iHaveThisPokemon(pokemon.getId()));
-                        }
-                        initPokedexRecyclerView(pokemons);
-                    }
-                });
-            }
-        }).start();*/
+            getActivity().runOnUiThread(() -> {
+                myPokemonManager.setMypokemons(mypokemons);
+                for (Pokemon pokemon: pokemons ) {
+                    pokemon.setOwned(myPokemonManager.iHaveThisPokemon(pokemon.getId()));
+                }
+                initPokedexRecyclerView(pokemons);
+            });
+        }).start();
 
 
         return view;
     }
 
-
-
-
+    
     public void initPokedexRecyclerView(List<Pokemon> pokemons) {
 
         pokedexRecyclerView.setHasFixedSize(true);
