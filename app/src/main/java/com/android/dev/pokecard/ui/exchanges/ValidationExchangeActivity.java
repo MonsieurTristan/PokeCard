@@ -11,6 +11,7 @@ import com.android.dev.pokecard.manager.WSManager;
 import com.android.dev.pokecard.models.Pokemon;
 import com.android.dev.pokecard.utils.Constants;
 import com.android.dev.pokecard.views.activity.BaseActivity;
+import com.android.dev.pokecard.views.activity.HomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -68,8 +69,15 @@ public class ValidationExchangeActivity extends BaseActivity {
     public void onValidateExchange () {
         new Thread(() -> {
             WSManager.getInstance().createExchange(mPokemonDonateId, mPokemonWantedId);
-            runOnUiThread(() -> finish());
+            runOnUiThread(() -> reload()
+            );
         }).start();
     }
+
+    public void reload () {
+        Intent intent = new Intent(ValidationExchangeActivity.this, HomeActivity.class);
+        startActivity(intent);
+    }
+
 
 }

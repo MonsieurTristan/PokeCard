@@ -141,7 +141,6 @@ public class WSManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public List<Exchange> getExchanges() {
@@ -160,6 +159,26 @@ public class WSManager {
         return exchanges;
     }
 
+    public void validateExchange (Exchange exchange) {
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("id", exchange.getId());
+        jsonObject.addProperty("iduser1", exchange.getIduser1());
+        jsonObject.addProperty("iduser2", PokeCardApplication.get().getmDataBase().userDao().getUser().getId());
+
+        jsonObject.addProperty("idpokemon1", exchange.getIdpokemon1());
+        jsonObject.addProperty("idpokemon2", exchange.getIdpokemon2());
+
+        Call call = service.validateExchange(jsonObject);
+
+        try {
+            call.execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Exchange> getMyExchanges() {
         List<Exchange> exchanges = new ArrayList<>();
 
@@ -172,7 +191,6 @@ public class WSManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return exchanges;
     }
 }

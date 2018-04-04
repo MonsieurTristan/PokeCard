@@ -10,10 +10,11 @@ import android.support.annotation.NonNull;
  * Created by paulg on 02/04/2018.
  */
 
-@Entity(indices = {@Index(value = "id", unique = true)})
+@Entity(indices = {@Index(value = "id", unique = false)})
 public class Exchange {
 
-    @PrimaryKey @NonNull String id;
+    @PrimaryKey @NonNull
+    int id;
 
     @ColumnInfo(name = "iduser1")
     String iduser1;
@@ -27,7 +28,7 @@ public class Exchange {
     @ColumnInfo(name = "status")
     String status;
 
-    public Exchange (String idExchange, String userId, String idPokemon1, String idPokemon2, String statusExchange) {
+    public Exchange (int idExchange, String userId, String idPokemon1, String idPokemon2, String statusExchange) {
         id = idExchange;
         iduser1 = userId;
         idpokemon1 = idPokemon1;
@@ -36,11 +37,11 @@ public class Exchange {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

@@ -142,7 +142,19 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
 
 
     @Override
-    public void onClickItem(Exchange exchange) {
+    public void onClickItem(Exchange exchange, int typeView) {
+        if (typeView == 0) {
+            new Thread(() -> {
+                WSManager.getInstance().validateExchange(exchange);
 
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onOtherExchangesClick();
+                    }
+                });
+
+            }).start();
+        }
     }
 }

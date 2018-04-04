@@ -49,7 +49,7 @@ public interface ServicePokemon {
 
     /**
      * GET
-     * Récupération de tout les pokemons
+     * Récupération de tout mes échanges
      */
     @GET("/boloss_api/web/index.php/getMyExchanges/{userId}")
     Call<List<Exchange>> getMyExchanges(@Path("userId") String userId);
@@ -77,5 +77,13 @@ public interface ServicePokemon {
      */
     @POST("/boloss_api/web/index.php/createExchange")
     Call<Void> createExchange(@Body JsonObject json);
+
+    /**
+     * POST
+     * Valider un échange
+     * @param json
+     */
+    @POST("/boloss_api/web/index.php/validateExchange")
+    Call<Void> validateExchange(@Body JsonObject json);
 
 }

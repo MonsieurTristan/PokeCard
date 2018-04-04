@@ -30,7 +30,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
 
 
     public interface OnItemListener {
-        void onClickItem(Exchange exchange);
+        void onClickItem(Exchange exchange, int typeView);
     }
 
     public ExchangeAdapter(Context context, List<Exchange> exchanges, int typeView, OnItemListener listener) {
@@ -100,7 +100,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<ExchangeAdapter.Exchan
                     + exchange.getIdpokemon1() + ".png")
                     .into(mPokemonDonateView);
 
-            mValidateExchangeButton.setOnClickListener(v -> mListener.onClickItem(exchange));
+            mValidateExchangeButton.setOnClickListener(v -> mListener.onClickItem(exchange, mTypeView));
         }
     }
 }

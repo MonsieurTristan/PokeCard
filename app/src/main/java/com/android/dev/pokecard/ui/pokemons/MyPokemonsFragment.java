@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.dev.pokecard.BaseFragment;
@@ -30,6 +31,9 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     MyPokemonManager myPokemonManager = MyPokemonManager.getInstance();
 
 
@@ -50,6 +54,8 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
         ButterKnife.bind(this, view);
 
         new Thread(() -> {
+            onLoading();
+
             final List<Pokemon> pokemons = WSManager.getInstance().getPokemonByUserId();
             myPokemonManager.setMypokemons(pokemons);
 
@@ -66,6 +72,7 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
     }
 
     public void afficherPokemons(List<Pokemon> pokemons) {
+        onLoaded();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(new PokemonsAdapter(getActivity(), pokemons, this));
         Toast.makeText(getActivity(),"nombre de Pokemon : "+ pokemons.size(),Toast.LENGTH_SHORT).show();
@@ -75,5 +82,17 @@ public class MyPokemonsFragment extends BaseFragment implements PokemonsAdapter.
     @Override
     public void onClickItem(Pokemon pokemon) {
 
+    }
+
+    protected void onLoading() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void onLoaded() {
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
