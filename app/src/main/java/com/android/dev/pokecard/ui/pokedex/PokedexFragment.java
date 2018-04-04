@@ -59,6 +59,8 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
         new Thread(() -> {
             final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
             final List<Pokemon> mypokemons = WSManager.getInstance().getPokemonByUserId();
+            if (getActivity() == null)
+                  return;
 
             getActivity().runOnUiThread(() -> {
                 myPokemonManager.setMypokemons(mypokemons);

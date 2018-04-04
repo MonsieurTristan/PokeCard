@@ -154,6 +154,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     public void onBackPressed() {
-        //finishAffinity();
+        finishAffinity();
     }
 }
