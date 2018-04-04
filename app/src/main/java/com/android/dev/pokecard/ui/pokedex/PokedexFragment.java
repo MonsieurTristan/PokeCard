@@ -57,7 +57,7 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
         ButterKnife.bind(this, view);
 
         new Thread(() -> {
-            final List<Pokemon> pokemons = PokeCardApplication.get().getmDataBase().pokedexDao().getPokedex();
+            final List<Pokemon> pokemons = WSManager.getInstance().getAllPokemon();
             final List<Pokemon> mypokemons = WSManager.getInstance().getPokemonByUserId();
 
             getActivity().runOnUiThread(() -> {
@@ -81,7 +81,7 @@ public class PokedexFragment extends BaseFragment implements PokedexAdapter.OnCl
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),4);
         pokedexRecyclerView.setLayoutManager(layoutManager);
 
-        PokedexAdapter pokedexAdapter = new PokedexAdapter(this.getContext(), pokemons, this);
+        PokedexAdapter pokedexAdapter = new PokedexAdapter(this.getContext(), pokemons, 0,  this);
         pokedexRecyclerView.setAdapter(pokedexAdapter);
     }
 

@@ -15,6 +15,7 @@ import com.android.dev.pokecard.BaseFragment;
 import com.android.dev.pokecard.R;
 import com.android.dev.pokecard.manager.WSManager;
 import com.android.dev.pokecard.models.Exchange;
+import com.android.dev.pokecard.utils.Collections;
 
 import java.util.List;
 
@@ -107,6 +108,7 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
     private void showExchanges (List<Exchange> exchanges, int typeView) {
         mRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        if (Collections.notEmpty(exchanges))
         mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, typeView, ExchangesFragment.this));
 
        /* new Thread(() -> {
@@ -131,13 +133,21 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
     }
 
     private void showMyExchanges () {
-        new Thread(() -> {
-            final List<Exchange> exchanges = WSManager.getInstance().getMyExchanges();
 
-            getActivity().runOnUiThread(() -> mRecyclerView.setLayoutManager(
-                    new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-            mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, 1, this));
-        }).start();
+            new Thread(() -> {
+                final List<Exchange> exchanges = WSManager.getInstance().getMyExchanges();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                            mRecyclerView.setLayoutManager(
+                                    new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                    }
+                });
+                if (Collections.notEmpty(exchanges)) {
+                    mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, 1, this));
+                }
+
+            }).start();
     }
 
 
@@ -146,11 +156,26 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
         if (typeView == 0) {
             new Thread(() -> {
                 WSManager.getInstance().validateExchange(exchange);
+                WSManager.getInstance().deleteExchange(exchange);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         onOtherExchangesClick();
+                    }
+                });
+
+            }).start();
+        }
+
+        if (typeView == 1) {
+            new Thread(() -> {
+                WSManager.getInstance().deleteExchange(exchange);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onMyExchangesClick();
                     }
                 });
 

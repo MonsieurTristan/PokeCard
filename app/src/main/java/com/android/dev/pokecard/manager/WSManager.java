@@ -54,7 +54,7 @@ public class WSManager {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         okBuilder.addInterceptor(logging);
 
-        okBuilder.readTimeout(1, TimeUnit.MINUTES);
+        okBuilder.readTimeout(2, TimeUnit.MINUTES);
 
         OkHttpClient httpClient = okBuilder.build();
 
@@ -170,6 +170,20 @@ public class WSManager {
         jsonObject.addProperty("idpokemon2", exchange.getIdpokemon2());
 
         Call call = service.validateExchange(jsonObject);
+
+        try {
+            call.execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteExchange (Exchange exchange) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", exchange.getId());
+
+        Call call = service.deleteExchange(jsonObject);
 
         try {
             call.execute();

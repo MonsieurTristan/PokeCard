@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity {
             AccessToken accessToken = AccessToken.getCurrentAccessToken();
             if (accessToken != null) {
                 getUserDetails(accessToken);
-
             }
 
         callbackManager = CallbackManager.Factory.create();

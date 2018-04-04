@@ -65,7 +65,7 @@ public class WantedExchangeActivity extends BaseActivity implements PokedexAdapt
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
         pokedexRecyclerView.setLayoutManager(layoutManager);
 
-        PokedexAdapter pokedexAdapter = new PokedexAdapter(WantedExchangeActivity.this, pokemons, this);
+        PokedexAdapter pokedexAdapter = new PokedexAdapter(WantedExchangeActivity.this, pokemons, 1, this);
         pokedexRecyclerView.setAdapter(pokedexAdapter);
     }
 

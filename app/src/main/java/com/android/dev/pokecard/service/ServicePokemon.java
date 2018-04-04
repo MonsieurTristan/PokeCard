@@ -86,4 +86,12 @@ public interface ServicePokemon {
     @POST("/boloss_api/web/index.php/validateExchange")
     Call<Void> validateExchange(@Body JsonObject json);
 
+    /**
+     * POST
+     * Supprimer un échange
+     * @param json
+     */
+    @POST("/boloss_api/web/index.php/cancelExchange")
+    Call<Void> deleteExchange(@Body JsonObject json);
+
 }

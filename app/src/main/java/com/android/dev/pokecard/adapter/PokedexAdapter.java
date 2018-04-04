@@ -27,17 +27,20 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexH
     Context context;
     private OnClickListener listener;
     private OnExchangeListener exchangeListener;
+    private int mTypeView;
 
-    public PokedexAdapter(Context context, List<Pokemon> pokemon, OnClickListener listener) {
+    public PokedexAdapter(Context context, List<Pokemon> pokemon, int typeView, OnClickListener listener) {
         this.pokemons = pokemon;
         this.context = context;
         this.listener = listener;
+        this.mTypeView = typeView;
     }
 
-    public PokedexAdapter(Context context, List<Pokemon> pokemon, OnExchangeListener listener) {
+    public PokedexAdapter(Context context, List<Pokemon> pokemon, int typeView, OnExchangeListener listener) {
         this.pokemons = pokemon;
         this.context = context;
         this.exchangeListener = listener;
+        this.mTypeView = typeView;
     }
 
     @Override
@@ -82,8 +85,8 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexH
         }
 
         public void bind(final Pokemon pokemon) {
-            //mView.setOnClickListener(v -> listener.displayPokemon(pokemon));
-            mView.setOnClickListener(v -> exchangeListener.onItemSelectedForExchange(pokemon));
+            if (mTypeView == 0)mView.setOnClickListener(v -> listener.displayPokemon(pokemon));
+            if (mTypeView == 1)mView.setOnClickListener(v -> exchangeListener.onItemSelectedForExchange(pokemon));
 
             pokemonImageView.setColorFilter(null);
             Picasso.with(context).load(pokemon.getPhotoUrl())
