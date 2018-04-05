@@ -155,7 +155,6 @@ public class WSManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return exchanges;
     }
 

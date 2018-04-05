@@ -158,4 +158,8 @@ public class MainActivity extends BaseActivity {
         return netInfo != null && netInfo.isConnected();
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }

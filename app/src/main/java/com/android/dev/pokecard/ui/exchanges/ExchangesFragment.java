@@ -110,26 +110,6 @@ public class ExchangesFragment extends BaseFragment implements ExchangeAdapter.O
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         if (Collections.notEmpty(exchanges))
         mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, typeView, ExchangesFragment.this));
-
-       /* new Thread(() -> {
-            //final List<Exchange> exchanges = WSManager.getInstance().getExchanges();
-
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mRecyclerView.setLayoutManager(
-                            new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                    mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, ExchangesFragment.this));
-                }
-            });
-
-            getActivity().runOnUiThread(() ->
-                    mRecyclerView.setLayoutManager(
-                    new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)));
-                    mRecyclerView.setAdapter(new ExchangeAdapter(getActivity(), exchanges, ExchangesFragment.this));
-            );
-
-        }).start();*/
     }
 
     private void showMyExchanges () {
